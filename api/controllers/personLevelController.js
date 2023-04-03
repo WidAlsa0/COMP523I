@@ -96,6 +96,23 @@ async function deleteAllRecords(req, res) {
     }
 }
 
+/* Upload a CSV File into the records */
+async function uploadCSVFile(req, res) {
+    var csv = req.body
+    console.log("This is the csv: " + csv);
+    try {
+        var result = await personLevelServices.uploadCSVtoDB(csv);
+        if(result) {
+            res.status(200).jsonp(result);
+        } else {
+            res.status(200).json({ success: true, msg: 'Record not found.' })
+        } 
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json( {success: false, msg: 'Failed to upload CSV.' })
+    }
+}
+
 
 module.exports = {
     getAllRecords,
@@ -103,5 +120,6 @@ module.exports = {
     addRecord,
     updateRecord,
     deleteRecord,
-    deleteAllRecords
+    deleteAllRecords,
+    uploadCSVFile
 };

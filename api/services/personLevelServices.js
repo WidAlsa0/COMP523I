@@ -1,7 +1,14 @@
 const personLevelModel = require('../models/personLevelSchema');
 
+const mongodb = require("mongodb").MongoClient;
+const csvtojson = require("csvtojson");
+const db = require('../database')
+const url = require('../database')
+
+
 /* Runs mongoose function to get all records from the database */
 async function getAllRecordsFromDB() {
+    uploadCSVtoDB();
     var records = await personLevelModel.find(function (err, docs) {
         if (err) {
             throw err;
@@ -111,11 +118,23 @@ async function deleteAllRecordsFromDB() {
     return records;
 }
 
+/* Utilizes Add Record to DB Method to upload CSV File */
+async function uploadCSVtoDB(csvFileName) {
+    csvtojson()
+    .fromFile("mockDataPersonColumns.csv")
+    .then(csvData => {
+        for(i=0; i<csvData.length; i++) {
+            addRecordToDB(csvData[i])
+        }
+    })
+}
+
 module.exports = {
     getAllRecordsFromDB,
     getRecordFromDB,
     addRecordToDB,
     updateRecordInDB,
     deleteRecordFromDB,
-    deleteAllRecordsFromDB
+    deleteAllRecordsFromDB,
+    uploadCSVtoDB
 };

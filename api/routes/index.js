@@ -19,6 +19,7 @@ router.get('/person_level', personLevelController.getAllRecords);
 router.get('/person_level/:id', personLevelController.getRecord);
 // Add record
 router.post('/person_level', personLevelController.addRecord);
+// router.post('/person_level/csv/:id', personLevelController.uploadCSVFile)
 // Update record
 router.patch('/person_level/:id', personLevelController.updateRecord);
 // Delete record
