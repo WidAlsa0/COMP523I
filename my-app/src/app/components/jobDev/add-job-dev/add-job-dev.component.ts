@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Model, StylesManager } from "survey-core";
 
-
 // const SURVEY_ID = 1;
 StylesManager.applyTheme("defaultV2");
 const surveyJson = {
@@ -15,8 +14,46 @@ const surveyJson = {
         {
           "type": "text",
           "name": "date_participated",
+          "inputType":"date",
           "title": "What were the dates the IPS Staff participated in trainings/PTO? (MM/DD/YYYY)",
-          "isRequired": true
+          "isRequired": true,
+          "description": "Add more dates below if applicable"
+        },
+        {
+          "type": "text",
+          "name": "date_participated2",
+          "startWithNewLine":false,
+          "inputType":"date",
+          "title": "date 2",
+          "visibleIf": "{date_participated} notempty",
+          "isRequired": false
+        },
+        {
+          "type": "text",
+          "name": "date_participated3",
+          "startWithNewLine":false,
+          "inputType":"date",
+          "title": "date 3",
+          "visibleIf": "{date_participated2} notempty",
+          "isRequired": false
+        },
+        {
+          "type": "text",
+          "name": "date_participated4",
+          "startWithNewLine":false,
+          "inputType":"date",
+          "title": "date 4",
+          "visibleIf": "{date_participated3} notempty",
+          "isRequired": false
+        },
+        {
+          "type": "text",
+          "name": "date_participated5",
+          "startWithNewLine":false,
+          "inputType":"date",
+          "title": "date 5",
+          "visibleIf": "{date_participated4} notempty",
+          "isRequired": false
         },
         {
           "type": "text",
@@ -53,16 +90,19 @@ const surveyJson = {
           "isRequired": true
         },
         {
-          "type": "text",
+          "type": "checkbox",
           "name": "contact_method",
           "title": "Contact method?",
           "description": "i.e., in person, via telephone, email, individual served made contact, etc.",
-          "isRequired": true
+          "isRequired": true,
+          "choices":["in person","via telephone","email","individual served made contact"],
+          "showOtherItem":true
         },
         {
           "type": "text",
           "name": "date_of_contact",
           "title": "Date of Contact",
+          "inputType":"date",
           "isRequired": true
         },
         {
@@ -99,6 +139,8 @@ const surveyJson = {
 }
 
 
+
+
 @Component({
   selector: 'app-add-job-dev',
   templateUrl: './add-job-dev.component.html',
@@ -106,8 +148,10 @@ const surveyJson = {
 })
 export class AddJobDevComponent implements OnInit {
 
+
   title = 'Job Development Log';
   surveyModel!: Model;
+
 
   ngOnInit() {
     const survey = new Model(surveyJson);

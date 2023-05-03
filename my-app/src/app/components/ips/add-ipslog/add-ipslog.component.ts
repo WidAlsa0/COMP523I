@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Model, StylesManager } from "survey-core";
 
+
 // const SURVEY_ID = 1;
 StylesManager.applyTheme("defaultV2");
 const surveyJson = {
@@ -22,6 +23,7 @@ const surveyJson = {
           "type": "text",
           "name": "time_period",
           "title": "What was the time period?",
+          "inputType":"date",
           "description": "MM/DD/YYYY",
           "isRequired": true
         },
@@ -29,6 +31,7 @@ const surveyJson = {
           "type": "text",
           "name": "work_week",
           "title": "When was the work week?",
+          "inputType":"date",
           "description": "MM/DD/YYYY",
           "isRequired": true
         },
@@ -37,28 +40,40 @@ const surveyJson = {
           "name": "hours_worked",
           "title": "Hours worked in week on the IPS Team.",
           "description": "Enter a number.",
-          "isRequired": true
+          "isRequired": true,
+          "validators": [
+            {"type":"numeric","text":"Value must be a number"}
+          ]
         },
         {
           "type": "text",
           "name": "team_hours_spent",
           "title": "Hours spent in community with clients face-to-face, job development, meetings at VR, and driving time.",
           "description": "Enter a number.",
-          "isRequired": true
+          "isRequired": true,
+          "validators": [
+            {"type":"numeric","text":"Value must be a number"}
+          ]
         },
         {
           "type": "text",
           "name": "community_hours_spent",
           "title": "Hours spent in treatment team meetings and vocational unit meetings, writing notes/ documentation, phone calls, and supervision in office.",
           "description": "Enter a number.",
-          "isRequired": true
+          "isRequired": true,
+          "validators": [
+            {"type":"numeric","text":"Value must be a number"}
+          ]
         },
         {
           "type": "text",
           "name": "train_PTO_hours_spent",
           "title": "Hours in spent in training or PTO.",
           "description": "Enter a number.",
-          "isRequired": true
+          "isRequired": true,
+          "validators": [
+            {"type":"numeric","text":"Value must be a number"}
+          ]
         }
       ],
       "title": "Please fill out the IPS activity log for each week"
@@ -66,15 +81,18 @@ const surveyJson = {
   ]
 }
 
+
 @Component({
   selector: 'app-ips',
   templateUrl: './add-ipslog.component.html',
   styleUrls: ['./add-ipslog.component.css']
 })
 
+
 export class AddIpslogComponent implements OnInit {
   title = 'IPS Log Survey';
   surveyModel!: Model;
+
 
   ngOnInit() {
     const survey = new Model(surveyJson);

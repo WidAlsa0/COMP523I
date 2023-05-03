@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Model, StylesManager } from "survey-core";
 
+
 // const SURVEY_ID = 1;
 StylesManager.applyTheme("defaultV2");
 const surveyJson = {
@@ -26,6 +27,7 @@ const surveyJson = {
         },
         {
           "type": "text",
+          "inputType":"date",
           "name": "closure_date",
           "title": "What was the Closure Date?",
           "description": "MM/DD/YYYY format.",
@@ -48,17 +50,22 @@ const surveyJson = {
           "isRequired": true
         },
         {
-          "type": "text",
+          "type": "checkbox",
           "name": "engagement_activities",
-          "title": "Please list types of Assertive Engagement Activities Utilized.",
+          "title": "Please select all types of Assertive Engagement Activities Utilized.",
           "description": "(e.g., phone calls, texts, sent a letter, home/community visits, coordinated with mental health team, TL/ESP/EPM contact, outreached natural supports)",
-          "isRequired": true
+          "choices": ["phone calls", "texts", "sent a letter", "home/community visits", "coordinated with mental health team", "TL/ESP/EPM contact", "outreached natural supports"],
+          "isRequired": true,
+          "showNoneItem":true,
+          "showOtherItem":true
         },
         {
-          "type": "text",
+          "type": "radiogroup",
           "name": "closure_reason",
           "title": "Please tell the reason for closure.",
           "description": " (e.g., unable to contact, requested discharge, moved out of of catchment, incarcerated, death, graduation)",
+          "choices":["unable to contact", "requested discharge", "moved out of of catchment", "incarcerated", "death", "graduation"],
+          "showOtherItem":true,
           "isRequired": true
         }
       ],
@@ -68,6 +75,7 @@ const surveyJson = {
   ]
 }
 
+
 @Component({
   selector: 'app-add-closed',
   templateUrl: './add-closed.component.html',
@@ -75,8 +83,10 @@ const surveyJson = {
 })
 export class AddClosedComponent implements OnInit {
 
+
   title = 'IPS Log Survey';
   surveyModel!: Model;
+
 
   // alertResults(sender: { data: any; }) {
   //   const results = JSON.stringify(sender.data);
@@ -91,6 +101,7 @@ export class AddClosedComponent implements OnInit {
   //   survey.onComplete.add(this.alertResults);
   //   this.surveyModel = survey;
   // }
+
 
   ngOnInit() {
     const survey = new Model(surveyJson);
@@ -115,5 +126,4 @@ export class AddClosedComponent implements OnInit {
       xhr.send(JSON.stringify(sender.data));
     })
   }
-
 }
